@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use Rizkhal\Inertable\Column;
+use Rizkhal\Inertable\Inertable;
+use Illuminate\Database\Eloquent\Builder;
+
+class DummyClass extends Inertable
+{
+    public function query(): Builder
+    {
+        // ...
+    }
+
+    public function columns(): array
+    {
+        return [
+            // ...
+        ];
+    }
+}
