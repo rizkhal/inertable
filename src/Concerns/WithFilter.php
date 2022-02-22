@@ -4,7 +4,7 @@ namespace Rizkhal\Inertable\Concerns;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\Datatable\Utils\Column as ColumnUtils;
+use Rizkhal\Inertable\Utils\ColumnAttributes;
 
 /**
  * With Filter
@@ -27,10 +27,10 @@ trait WithFilter
             $subQuery->where(function (Builder $subSubQuery) use ($search, $query, $searchableColumns) {
                 foreach ($searchableColumns as $column) {
                     // Does this column have an alias or relation?
-                    $hasRelation = ColumnUtils::hasRelation($column->column);
+                    $hasRelation = ColumnAttributes::hasRelation($column->column);
 
                     // Let's try to map this column to a selected column
-                    $selectedColumn = ColumnUtils::mapToSelected($column->column, $query);
+                    $selectedColumn = ColumnAttributes::mapToSelected($column->column, $query);
 
                     // If the column has a search callback, just use that
                     if ($column->hasSearchCallback()) {
@@ -47,7 +47,7 @@ trait WithFilter
                         // We can use a simple where clause
                         $subSubQuery->orWhere($whereColumn, 'like', '%' . $search . '%');
                     } else {
-                        if (ColumnUtils::hasMultipleRelation($column->column)) {
+                        if (ColumnAttributes::hasMultipleRelation($column->column)) {
                             [$relationName_1, $relationName_2, $relationAttribute_1] = explode('.', $column->column);
 
                             $subSubQuery->orWhereHas($relationName_1 . '.' . $relationName_2, function (Builder $hasQuery) use ($relationAttribute_1, $search) {
@@ -55,8 +55,8 @@ trait WithFilter
                             });
                         } else {
                             // Parse the column
-                            $relationName = ColumnUtils::parseRelation($column->column);
-                            $fieldName = ColumnUtils::parseField($column->column);
+                            $relationName = ColumnAttributes::parseRelation($column->column);
+                            $fieldName = ColumnAttributes::parseField($column->column);
 
                             // We use whereHas which can work with unselected relations
                             $subSubQuery->orWhereHas($relationName, function (Builder $hasQuery) use ($fieldName, $search) {

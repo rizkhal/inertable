@@ -2,7 +2,8 @@
 
 namespace Rizkhal\Inertable;
 
-use Inertia\Inertia;
+use Rizkhal\Inertable\Inertable;
+use Inertia\Response as Inertia;
 use Illuminate\Support\ServiceProvider;
 
 class InertableServiceProvider extends ServiceProvider
@@ -27,7 +28,7 @@ class InertableServiceProvider extends ServiceProvider
             return $this->with('title', $title);
         });
 
-        Inertia::macro('inertable', function ($table) {
+        Inertia::macro('inertable', function (Inertable $table) {
             return $this->with([
                 'inertable' => [
                     'fields' => $table->fields(),

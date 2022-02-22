@@ -2,8 +2,8 @@
 
 namespace Rizkhal\Inertable\Concerns;
 
-use App\Datatable\Column;
 use Illuminate\Http\Request;
+use Rizkhal\Inertable\Column;
 use Illuminate\Database\Eloquent\Builder;
 
 /**

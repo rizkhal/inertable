@@ -5,14 +5,15 @@ namespace Rizkhal\Inertable;
 use Illuminate\Http\Request;
 use Rizkhal\Inertable\Column;
 use Illuminate\Database\Eloquent\Model;
+use Rizkhal\Inertable\Concerns\WithQuery;
+use Rizkhal\Inertable\Concerns\WithColumn;
 use Rizkhal\Inertable\Concerns\WithFilter;
 use Rizkhal\Inertable\Concerns\WithPerPage;
 use Rizkhal\Inertable\Concerns\WithSorting;
 use Rizkhal\Inertable\Utils\ColumnAttributes;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Rizkhal\Inertable\Concerns\DatatableInterface;
 
-abstract class Datatable implements DatatableInterface
+abstract class Inertable implements WithQuery, WithColumn
 {
     use WithFilter,
         WithPerPage,

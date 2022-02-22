@@ -17,6 +17,8 @@ class Column
 
     public bool $searchable = false;
 
+    public bool $checkbox = false;
+
     public Closure|null $sortCallback = null;
 
     public Closure|null $searchCallback = null;
@@ -48,9 +50,9 @@ class Column
         return new static(null, null);
     }
 
-    public function invisible(): Column
+    public function checkbox(): Column
     {
-        $this->blank = true;
+        $this->checkbox = true;
 
         return $this;
     }
