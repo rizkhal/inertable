@@ -19,6 +19,15 @@ abstract class Inertable implements WithQuery, WithColumn
         WithPerPage,
         WithSorting;
 
+    public function columnsMerged(): array
+    {
+        if (method_exists($this, 'getKey')) {
+            return array_merge([Column::make($this->getKey())], $this->columns());
+        }
+
+        return array_merge([Column::make('id')], $this->columns());
+    }
+
     /**
      * Get searhable columns
      *
@@ -26,7 +35,7 @@ abstract class Inertable implements WithQuery, WithColumn
      */
     public function getSearchableColumns(): array
     {
-        return array_filter($this->columns(), fn (Column $column): bool => $column->isSearchable());
+        return array_filter($this->columnsMerged(), fn (Column $column): bool => $column->isSearchable());
     }
 
     /**
@@ -37,7 +46,7 @@ abstract class Inertable implements WithQuery, WithColumn
      */
     public function getColumn(string|null $column): object
     {
-        return collect($this->columns())->where('column', $column)->first();
+        return collect($this->columnsMerged())->where('column', $column)->first();
     }
 
     /**
@@ -67,7 +76,7 @@ abstract class Inertable implements WithQuery, WithColumn
     {
         $items = [];
 
-        foreach ($this->columns() as $column) {
+        foreach ($this->columnsMerged() as $column) {
             if (ColumnAttributes::hasRelation($column->column)) {
                 if (ColumnAttributes::hasMultipleRelation($column->column)) {
                     if ($this->getColumn($column->column)->hasFormatCallback()) {

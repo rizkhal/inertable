@@ -50,8 +50,14 @@ class Column
         return new static(null, null);
     }
 
+    public static function action(): Column
+    {
+        return new static('action', null);
+    }
+
     public function checkbox(): Column
     {
+        $this->column = 'checkbox';
         $this->checkbox = true;
 
         return $this;
