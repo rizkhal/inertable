@@ -8,21 +8,36 @@ use Illuminate\Support\ServiceProvider;
 
 class InertableServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function register()
     {
-        $this->registerCommands()->registerMacroable();
+        $this->mergeConfigFrom(__DIR__ . '/../config/inertable.php', 'inertable');
     }
 
-    public function registerCommands(): self
+    public function boot()
+    {
+        $this->registerCommands();
+        $this->registerMacroable();
+    }
+
+    public function configurePublishing()
+    {
+        if (!$this->app->runningInConsole()) {
+            return;
+        }
+
+        $this->publishes([
+            __DIR__ . '/../config/inertable.php' => config_path('inertable.php'),
+        ], 'inertable-config');
+    }
+
+    protected function registerCommands(): void
     {
         $this->commands([
             \Rizkhal\Inertable\Commands\MakeInertableCommand::class,
         ]);
-
-        return $this;
     }
 
-    public function registerMacroable(): self
+    protected function registerMacroable(): void
     {
         Inertia::macro('title', function ($title) {
             return $this->with('title', $title);
@@ -38,7 +53,5 @@ class InertableServiceProvider extends ServiceProvider
                 ]
             ]);
         });
-
-        return $this;
     }
 }

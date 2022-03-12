@@ -2,6 +2,13 @@
   "name": "rizkhal/inertable",
   "description": "A simple datatable for inertia",
   "type": "library",
+  "authors": [
+    {
+      "name": "Rizkhal",
+      "role": "Developer",
+      "email": "lamaaurizkhal@gmail.com"
+    }
+  ],
   "require": {
     "php": "^8.1",
     "illuminate/support": "^8.62|^9.0.0",
@@ -24,13 +31,6 @@
       "Rizkhal\\Inertable\\Tests\\": "tests"
     }
   },
-  "authors": [
-    {
-      "name": "Rizkhal",
-      "role": "Developer",
-      "email": "lamaaurizkhal@gmail.com"
-    }
-  ],
   "extra": {
     "laravel": {
       "providers": [
@@ -38,5 +38,6 @@
       ]
     }
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
