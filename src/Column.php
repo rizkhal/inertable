@@ -50,17 +50,14 @@ class Column
         return new static(null, null);
     }
 
-    public static function action(): Column
+    public static function action($column = 'action'): Column
     {
-        return new static('action', null);
+        return new static($column, null);
     }
 
-    public function checkbox(): Column
+    public static function checkbox($column = 'checkbox'): Column
     {
-        $this->column = 'checkbox';
-        $this->checkbox = true;
-
-        return $this;
+        return new static($column, null);
     }
 
     public function text(): string|null

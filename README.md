@@ -1,23 +1,35 @@
-## INERTIA DATATABLE
+![Package Logo](https://banners.beyondco.de/INERTABLE.png?theme=light&packageManager=composer+require&packageName=rizkhal%2Finertable&pattern=jigsaw&style=style_1&description=A+Simple+Datatable+For+Laravel+Using+Inertia3+%26+Vue3&md=1&showWatermark=0&fontSize=100px&images=table&widths=auto)
 
-<img src="./art/art.png" alt="Art" />
+<p align="center">
 
-## RERUITMENT
-- php8.1
-- inertiajs
-- laravel 8 | 9
+<a href="https://img.shields.io/github/last-commit/rizkhal/inertable?style=plastic">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rizkhal/inertable">
+</a>
+  
+<a href="https://img.shields.io/github/issues/rizkhal/inertable">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/rizkhal/inertable">
+</a>
+  
+<a href="https://img.shields.io/packagist/v/rizkhal/inertable">
+<img alt="Packagist Version" src="https://img.shields.io/packagist/v/rizkhal/inertable">
+</a>
+
+</p>
 
 ## INSTALATION
+
 ```bash
 composer require rizkhal/inertable
 ```
 
 ## USAGE
+
 ```bash
 php artisan make:inertable UserTable
 ```
 
 This will be generate a basic inertable starter
+
 ```php
 <?php
 
@@ -48,6 +60,7 @@ class UserTable extends Inertable
 ## EXAMPLE
 
 ### BASIC
+
 ```php
 <?php
 
@@ -81,8 +94,3 @@ class UserTable extends Inertable
     }
 }
 ```
-
-### ADVANCE
-...
-
-

@@ -1,0 +1,5 @@
+<?php
+
+return [
+    'theme' => 'tailwind',
+];
