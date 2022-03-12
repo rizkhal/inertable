@@ -3,7 +3,7 @@
 <p align="center">
 
 <a href="https://img.shields.io/github/last-commit/rizkhal/inertable?style=plastic">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rizkhal/inertable?style=plastic">
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rizkhal/inertable">
 </a>
   
 <a href="https://img.shields.io/github/issues/rizkhal/inertable">
