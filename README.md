@@ -2,10 +2,14 @@
 
 <p align="center">
 
+<a href="https://github.com/rizkhal/inertable/actions/workflows/tests.yml/badge.svg">
+<img alt="GitHub last commit" src="https://github.com/rizkhal/inertable/actions/workflows/tests.yml/badge.svg">
+</a>
+
 <a href="https://img.shields.io/github/last-commit/rizkhal/inertable?style=plastic">
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rizkhal/inertable">
 </a>
-  
+
 <a href="https://img.shields.io/github/issues/rizkhal/inertable">
 <img alt="GitHub issues" src="https://img.shields.io/github/issues/rizkhal/inertable">
 </a>
