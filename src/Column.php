@@ -4,13 +4,10 @@ namespace Rizkhal\Inertable;
 
 use Closure;
 use Illuminate\Support\Str;
+use Rizkhal\Inertable\Enums\ColumnType;
 
 class Column
 {
-    public string|null $column = null;
-
-    public string|null $text = null;
-
     public bool $blank = false;
 
     public bool $sortable = false;
@@ -25,8 +22,10 @@ class Column
 
     public Closure|null $formatCallback = null;
 
-    public function __construct(string|null $text = null, string|null $column = null)
-    {
+    public function __construct(
+        public string|null $text = null,
+        public string|null $column = null
+    ) {
         $this->text = $text;
 
         if (!$column && $text) {
@@ -37,6 +36,11 @@ class Column
 
         if (!$this->column && !$this->text) {
             $this->blank = true;
+        }
+
+        if ($this->column === ColumnType::CHECKBOX()) {
+            $this->blank = true;
+            $this->checkbox = true;
         }
     }
 
@@ -50,14 +54,14 @@ class Column
         return new static(null, null);
     }
 
-    public static function action($column = 'action'): Column
+    public static function action(): Column
     {
-        return new static($column, null);
+        return new static(ColumnType::ACTION(), null);
     }
 
-    public static function checkbox($column = 'checkbox'): Column
+    public static function checkbox(): Column
     {
-        return new static($column, null);
+        return new static(ColumnType::CHECKBOX(), null);
     }
 
     public function text(): string|null

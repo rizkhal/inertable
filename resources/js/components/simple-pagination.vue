@@ -12,7 +12,7 @@
       <button
         :disabled="noPreviousPage"
         :class="{ 'opacity-50 cursor-not-allowed': noPreviousPage }"
-        @click="$emit('loadPage', 1)"
+        @click="$emit('onLoadPage', 1)"
         class="
           inline-flex
           justify-center
@@ -29,12 +29,14 @@
           focus:ring-1 focus:ring-cyan-600 focus:border-cyan-600
         "
       >
-        <!-- <v-icon name="ChevronDoubleLeftIcon" class="w-4 h-4 lg:h-5 lg:w-5" /> -->
+        <svg class="w-4 h-4 lg:h-5 lg:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="2.3em" height="2.3em">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+        </svg>
       </button>
       <button
         :disabled="noPreviousPage"
         :class="{ 'opacity-50 cursor-not-allowed': noPreviousPage }"
-        @click="$emit('loadPage', current - 1)"
+        @click="$emit('onLoadPage', current - 1)"
         class="
           inline-flex
           justify-center
@@ -50,7 +52,9 @@
           focus:ring-1 focus:ring-cyan-600 focus:border-cyan-600
         "
       >
-        <!-- <v-icon name="ChevronLeftIcon" class="w-4 h-4 lg:h-5 lg:w-5" /> -->
+        <svg class="w-4 h-4 lg:h-5 lg:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="2.3em" height="2.3em">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
       </button>
 
       <div class="flex flex-row items-center">
@@ -59,7 +63,7 @@
           type="number"
           v-model="page"
           :max="last"
-          @keydown.enter="$emit('loadPage', page)"
+          @keydown.enter="$emit('onLoadPage', page)"
           class="bg-gray-50 mr-2 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-[4rem] p-2.5"
         />
         <div class="text-sm font-normal text-gray-500 mx-1">
@@ -70,7 +74,7 @@
       <button
         :disabled="noNextPage"
         :class="{ 'opacity-50 cursor-not-allowed': noNextPage }"
-        @click="$emit('loadPage', current + 1)"
+        @click="$emit('onLoadPage', current + 1)"
         class="
           inline-flex
           justify-center
@@ -86,12 +90,14 @@
           focus:ring-1 focus:ring-cyan-600 focus:border-cyan-600
         "
       >
-        <!-- <v-icon name="ChevronRightIcon" class="w-4 h-4 lg:h-5 lg:w-5" /> -->
+        <svg class="w-4 h-4 lg:h-5 lg:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="2.3em" height="2.3em">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
       </button>
       <button
         :disabled="noNextPage"
         :class="{ 'opacity-50 cursor-not-allowed': noNextPage }"
-        @click="$emit('loadPage', last)"
+        @click="$emit('onLoadPage', last)"
         class="
           inline-flex
           justify-center
@@ -107,14 +113,16 @@
           focus:ring-1 focus:ring-cyan-600 focus:border-cyan-600
         "
       >
-        <!-- <v-icon name="ChevronDoubleRightIcon" class="w-4 h-4 lg:h-5 lg:w-5" /> -->
+        <svg class="w-4 h-4 lg:h-5 lg:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="2.3em" height="2.3em">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+        </svg>
       </button>
     </div>
   </div>
 </template>
 <script>
 export default {
-  emits: ["loadPage"],
+  emits: ["onLoadPage"],
   props: {
     total: Number,
     last: Number,

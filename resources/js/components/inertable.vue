@@ -39,18 +39,31 @@
     </div>
     <div class="flex flex-col">
       <div class="overflow-x-auto">
+        <div class="bg-white p-4 border-b border-dashed" v-if="selected.length">
+          <span class="mr-4">{{ selected.length }} Row Selected</span>
+          <div class="inline-flex gap-2">
+            <button @click="handleSelectAll" class="bg-cyan-600 px-2 py-1 text-white text-sm rounded focus:ring-2 focus:ring-offset-2 focus:ring-cyan-600">Select All</button>
+            <button class="bg-gray-600 px-2 py-1 text-white text-sm rounded focus:ring-2 focus:ring-offset-2 focus:ring-gray-600">Unselect All</button>
+          </div>
+        </div>
         <div class="align-middle inline-block min-w-full">
           <div class="shadow overflow-hidden">
             <table class="table-fixed min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-100">
-                <v-col :columns="columns" :filters="filters" @onSort="handleSort" />
+                <v-col :columns="columns" :filters="filters" @onSort="handleSort" @onCheckAll="handleCheckAll" />
               </thead>
               <tbody class="bg-white divide-y divide-gray-200" v-if="data.data.length">
                 <tr v-for="(item, index) in data.data" :key="index" class="hover:bg-gray-100">
                   <template v-for="(column, i) in columns" :key="i">
                     <td v-if="column.blank && column.checkbox" class="p-4 w-4">
                       <div class="flex items-center">
-                        <input :id="`checkbox-${id}`" type="checkbox" class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded" />
+                        <input
+                          :id="`checkbox-${id}`"
+                          v-model="selected"
+                          :value="item.id"
+                          type="checkbox"
+                          class="bg-gray-50 border-gray-300 focus:ring-3 focus:ring-cyan-200 h-4 w-4 rounded"
+                        />
                         <label :for="`checkbox-${id}`" class="sr-only">checkbox</label>
                       </div>
                     </td>
@@ -71,19 +84,21 @@
 
     <v-simple-pagination
       v-if="pagination === PaginationType.SIMPLE"
-      :total="data.data.total"
-      :last="data.data.last_page"
-      :current="data.data.current_page"
-      :from="data.data.from"
-      :to="data.data.to"
-      @loadPage="handleOnLoadPage"
+      :total="data.total"
+      :last="data.last_page"
+      :current="data.current_page"
+      :from="data.from"
+      :to="data.to"
+      @onLoadPage="handleOnLoadPage"
     />
   </main>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { v4 as uuid } from "uuid";
+import { defineComponent, watch, reactive, ref } from "vue";
 import { throttle, pickBy } from "lodash";
 import { PaginationType } from "../utils/enum";
+import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
   props: {
@@ -101,23 +116,64 @@ export default defineComponent({
       inertable: { columns, data, fields, filters },
     } = attrs;
 
-    console.log(data);
+    const id = uuid();
 
-    const handleOnLoadPage = () => {
-      //
+    const selected = ref([]);
+    const filtersParams = reactive({
+      column: filters.column,
+      direction: filters.direction,
+      search: filters.search,
+      perpage: filters.perpage ?? 15,
+      page: data.current_page,
+    });
+
+    const handleOnLoadPage = (page) => {
+      filtersParams.page = page;
     };
 
     const handleSort = () => {
       //
     };
 
+    const handleCheckAll = (selectedAll) => {
+      selected.value = [];
+
+      if (selectedAll) {
+        for (let item in data.data) {
+          selected.value.push(data.data[item]["id"]);
+        }
+      }
+    };
+
+    const handleSelectAll = () => {
+      console.log("it will be select all row");
+    };
+
+    // watcher
+    watch(
+      () => filtersParams,
+      (filterParams, prevFilterParams) => {
+        let params = pickBy(filtersParams);
+
+        Inertia.get(`${window.location.pathname}`, params, {
+          replace: true,
+          preserveState: true,
+        });
+      },
+      { deep: true },
+    );
+
     return {
+      id,
       columns,
       data,
       fields,
       filters,
+      selected,
       PaginationType,
       handleSort,
+      handleCheckAll,
+      handleSelectAll,
       handleOnLoadPage,
     };
   },
