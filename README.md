@@ -18,6 +18,10 @@
 <img alt="Packagist Version" src="https://img.shields.io/packagist/v/rizkhal/inertable">
 </a>
 
+<a href="https://img.shields.io/npm/v/@rizkhal/inertable-vue">
+<img alt="Npm Version" src="https://img.shields.io/npm/v/@rizkhal/inertable-vue">
+</a>
+
 </p>
 
 ## SERVER SIDE INSTALATION
@@ -55,12 +59,12 @@ class UserTable extends Inertable
     public function columns(): array
     {
         return [
-            Column::blank()->checkbox(),
+            Column::checkbox(),
             Column::make(__('Name'), 'name')->sortable()->searchable(),
             Column::make(__('Email'), 'email')->sortable()->searchable(),
             Column::make(__('Verified'), 'email_verified_at')->sortable()->searchable()->format(fn (Carbon $value): string => $value->format('d/m/Y')),
             Column::make(__('status'), 'status')->sortable()->searchable(),
-            Column::blank(),
+            Column::action(),
         ];
     }
 }
@@ -77,13 +81,15 @@ npm install @rizkhal/inertable-vue
 Or YARN
 
 ```bash
-yarn add @rizkhal/inertable
+yarn add @rizkhal/inertable-vue
 ```
 
 Setup in `app.js`
 
 ```js
 import inertable from "@rizkhal/inertable-vue";
+
+// ...
 app.use(inertable);
 ```
 
