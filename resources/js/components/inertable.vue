@@ -50,11 +50,11 @@
           <div class="shadow overflow-hidden">
             <table class="table-fixed min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-100">
-                <v-col :columns="columns" :filters="filters" @onSort="handleSort" @onCheckAll="handleCheckAll" />
+                <v-col :columns="inertable.columns" :filters="filters" @onSort="handleSort" @onCheckAll="handleCheckAll" />
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200" v-if="data.data.length">
-                <tr v-for="(item, index) in data.data" :key="index" class="hover:bg-gray-100">
-                  <template v-for="(column, i) in columns" :key="i">
+              <tbody class="bg-white divide-y divide-gray-200" v-if="inertable.data.data.length">
+                <tr v-for="(item, index) in inertable.data.data" :key="index" class="hover:bg-gray-100">
+                  <template v-for="(column, i) in inertable.columns" :key="i">
                     <td v-if="column.blank && column.checkbox" class="p-4 w-4">
                       <div class="flex items-center">
                         <input
@@ -84,24 +84,26 @@
 
     <v-simple-pagination
       v-if="pagination === PaginationType.SIMPLE"
-      :total="data.total"
-      :last="data.last_page"
-      :current="data.current_page"
-      :from="data.from"
-      :to="data.to"
+      :total="inertable.data.total"
+      :last="inertable.data.last_page"
+      :current="params.page"
+      :from="inertable.data.from"
+      :to="inertable.data.to"
       @onLoadPage="handleOnLoadPage"
     />
   </main>
 </template>
 <script>
 import { v4 as uuid } from "uuid";
-import { defineComponent, watch, reactive, ref } from "vue";
 import { throttle, pickBy } from "lodash";
 import { PaginationType } from "../utils/enum";
-import { Inertia } from "@inertiajs/inertia";
 
-export default defineComponent({
+export default {
   props: {
+    inertable: {
+      type: Object,
+      required: true,
+    },
     pagination: {
       type: String,
       required: true,
@@ -111,71 +113,53 @@ export default defineComponent({
       default: () => [],
     },
   },
-  setup(__, { attrs }) {
-    const {
-      inertable: { columns, data, fields, filters },
-    } = attrs;
+  data() {
+    const { data, filters } = this.inertable;
 
-    const id = uuid();
-
-    const selected = ref([]);
-    const filtersParams = reactive({
-      column: filters.column,
-      direction: filters.direction,
-      search: filters.search,
-      perpage: filters.perpage ?? 15,
-      page: data.current_page,
-    });
-
-    const handleOnLoadPage = (page) => {
-      filtersParams.page = page;
+    return {
+      id: uuid(),
+      filters: filters,
+      selected: [],
+      params: {
+        column: filters.column,
+        direction: filters.direction,
+        search: filters.search,
+        perpage: filters.perpage ?? 15,
+        page: data.current_page,
+      },
+      PaginationType: PaginationType,
     };
-
-    const handleSort = () => {
+  },
+  methods: {
+    handleSort() {
       //
-    };
+    },
+    handleCheckAll(selectAll) {
+      const { data } = this.inertable.data;
+      this.selected = [];
 
-    const handleCheckAll = (selectedAll) => {
-      selected.value = [];
-
-      if (selectedAll) {
-        for (let item in data.data) {
-          selected.value.push(data.data[item]["id"]);
+      if (selectAll) {
+        for (const item in data) {
+          this.selected.push(data[item]["id"]);
         }
       }
-    };
+    },
+    handleOnLoadPage(page) {
+      this.params.page = page;
+    },
+  },
+  watch: {
+    params: {
+      handler: throttle(function () {
+        let params = pickBy(this.params);
 
-    const handleSelectAll = () => {
-      console.log("it will be select all row");
-    };
-
-    // watcher
-    watch(
-      () => filtersParams,
-      (filterParams, prevFilterParams) => {
-        let params = pickBy(filtersParams);
-
-        Inertia.get(`${window.location.pathname}`, params, {
+        this.$inertia.get(`${window.location.pathname}`, params, {
           replace: true,
           preserveState: true,
         });
-      },
-      { deep: true },
-    );
-
-    return {
-      id,
-      columns,
-      data,
-      fields,
-      filters,
-      selected,
-      PaginationType,
-      handleSort,
-      handleCheckAll,
-      handleSelectAll,
-      handleOnLoadPage,
-    };
+      }, 250),
+      deep: true,
+    },
   },
-});
+};
 </script>
