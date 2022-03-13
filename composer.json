@@ -18,17 +18,18 @@
     "friendsofphp/php-cs-fixer": "^3.1",
     "pestphp/pest": "^1.20",
     "pestphp/pest-plugin-laravel": "^1.1",
-    "orchestra/testbench": "^7.1"
+    "orchestra/testbench": "^7.1",
+    "pestphp/pest-plugin-parallel": "^1.0"
   },
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Rizkhal\\Inertable\\": "src/"
+      "Rizkhal\\Inertable\\": "php/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Rizkhal\\Inertable\\Tests\\": "tests"
+      "Rizkhal\\Inertable\\Tests\\": "php/tests"
     }
   },
   "extra": {
