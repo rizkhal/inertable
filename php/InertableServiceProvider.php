@@ -8,26 +8,10 @@ use Illuminate\Support\ServiceProvider;
 
 class InertableServiceProvider extends ServiceProvider
 {
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__ . '/../config/inertable.php', 'inertable');
-    }
-
     public function boot()
     {
         $this->registerCommands();
         $this->registerMacroable();
-    }
-
-    public function configurePublishing()
-    {
-        if (!$this->app->runningInConsole()) {
-            return;
-        }
-
-        $this->publishes([
-            __DIR__ . '/../config/inertable.php' => config_path('inertable.php'),
-        ], 'inertable-config');
     }
 
     protected function registerCommands(): void

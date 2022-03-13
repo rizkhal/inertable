@@ -20,7 +20,7 @@
 
 </p>
 
-## INSTALATION
+## SERVER SIDE INSTALATION
 
 ```bash
 composer require rizkhal/inertable
@@ -31,39 +31,6 @@ composer require rizkhal/inertable
 ```bash
 php artisan make:inertable UserTable
 ```
-
-This will be generate a basic inertable starter
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Inertable;
-
-use Rizkhal\Inertable\Column;
-use Rizkhal\Inertable\Inertable;
-use Illuminate\Database\Eloquent\Builder;
-
-class UserTable extends Inertable
-{
-    public function query(): Builder
-    {
-        // ...
-    }
-
-    public function columns(): array
-    {
-        return [
-            // ...
-        ];
-    }
-}
-```
-
-## EXAMPLE
-
-### BASIC
 
 ```php
 <?php
@@ -97,4 +64,72 @@ class UserTable extends Inertable
         ];
     }
 }
+```
+
+## CLIENT SIDE INSTALLATION
+
+Using NPM
+
+```bash
+npm install @rizkhal/inertable-vue
+```
+
+Or YARN
+
+```bash
+yarn add @rizkhal/inertable
+```
+
+Setup in `app.js`
+
+```js
+import inertable from "@rizkhal/inertable-vue";
+app.use(inertable);
+```
+
+Usage in component or page
+
+```vue
+<template>
+  <div class="mx-auto max-w-7xl py-10 px-5">
+    <v-inertable :inertable="props.inertable" :actions="actions" @onAdd="handleOnAdd">
+      <template #action>
+        <button class="rounded bg-red-500 py-1 px-2 text-white focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Delete</button>
+      </template>
+    </v-inertable>
+  </div>
+</template>
+<script setup>
+import actions from "./actions.json";
+
+const props = defineProps({
+  inertable: Object,
+});
+
+const handleOnAdd = () => {
+  console.log("on add triggered");
+};
+</script>
+```
+
+The `actions.json` just a simple array of object to generate button for handle your modal button to add data or something else
+
+```json
+[
+  {
+    "text": "New User",
+    "icon": "PlusSmIcon",
+    "emit": "onAdd"
+  }
+]
+```
+
+You can also using `slots` to make it
+
+```vue
+<v-inertable :inertable="props.inertable">
+    <template #actions>
+        <!-- add your buttons here -->
+    </template>
+</v-inertable>
 ```

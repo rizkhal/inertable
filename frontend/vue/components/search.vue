@@ -1,6 +1,6 @@
 <template>
   <form class="lg:pr-3">
-    <label for="users-search" class="sr-only">Search</label>
+    <label class="sr-only">Search</label>
     <div class="mt-1 relative lg:w-64 xl:w-96">
       <input
         type="search"
@@ -13,11 +13,10 @@
     </div>
   </form>
 </template>
-<script>
-export default {
-  props: {
-    modelValue: String,
-  },
-  emits: ["update:modelValue"],
-};
+<script setup>
+const props = defineProps({
+  modelValue: String,
+});
+
+const emits = defineEmits(["update:modelValue"]);
 </script>
