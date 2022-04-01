@@ -2,9 +2,9 @@
 
 namespace Rizkhal\Inertable\Concerns;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Rizkhal\Inertable\Column;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * With Sorting

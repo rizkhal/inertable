@@ -2,11 +2,11 @@
 
 use Rizkhal\Inertable\Utils\ColumnAttributes;
 
-it('will parse fields', function () {
+it('should parse fields', function () {
     expect('id')->toBeString(ColumnAttributes::parseField('users.id'));
 });
 
-it('will parse relations', function () {
+it('should parse relations', function () {
     expect('id')->toBeString('users', ColumnAttributes::parseRelation('users.id'));
 });
 

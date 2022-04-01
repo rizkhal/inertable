@@ -2,16 +2,15 @@
 
 namespace Rizkhal\Inertable;
 
-use Illuminate\Http\Request;
-use Rizkhal\Inertable\Column;
 use Illuminate\Database\Eloquent\Model;
-use Rizkhal\Inertable\Concerns\WithQuery;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Rizkhal\Inertable\Concerns\WithColumn;
 use Rizkhal\Inertable\Concerns\WithFilter;
 use Rizkhal\Inertable\Concerns\WithPerPage;
+use Rizkhal\Inertable\Concerns\WithQuery;
 use Rizkhal\Inertable\Concerns\WithSorting;
 use Rizkhal\Inertable\Utils\ColumnAttributes;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 abstract class Inertable implements WithQuery, WithColumn
 {
@@ -19,6 +18,21 @@ abstract class Inertable implements WithQuery, WithColumn
         WithPerPage,
         WithSorting;
 
+    /**
+     * Get table name
+     *
+     * @return string
+     */
+    public function getTableName(): string
+    {
+        return property_exists($this, 'table') ? $this->table : 'inertable';
+    }
+
+    /**
+     * Get columns merged
+     *
+     * @return array
+     */
     public function columnsMerged(): array
     {
         if (method_exists($this, 'getKey')) {
@@ -63,7 +77,7 @@ abstract class Inertable implements WithQuery, WithColumn
 
         $query = $this->applySearchFilter($request, $query);
 
-        return $query->paginate($this->perPage())->withQueryString()->through(fn ($model) => $this->through($model));
+        return $query->paginate($this->perPage(), ['*'], $request->get('table') ?: 'inertable')->withQueryString()->through(fn ($model) => $this->through($model));
     }
 
     /**

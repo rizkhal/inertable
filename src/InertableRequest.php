@@ -2,9 +2,8 @@
 
 namespace Rizkhal\Inertable;
 
-use Rizkhal\Inertable\Column;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class InertableRequest extends FormRequest
 {
@@ -17,7 +16,7 @@ class InertableRequest extends FormRequest
     {
         return [
             'direction' => Rule::in(['asc', 'desc']),
-            'column' => Rule::in(collect($this->columns())->pluck('column')->all())
+            'column' => Rule::in(collect($this->columns())->pluck('column')->all()),
         ];
     }
 

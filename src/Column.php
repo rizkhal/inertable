@@ -28,13 +28,13 @@ class Column
     ) {
         $this->text = $text;
 
-        if (!$column && $text) {
+        if (! $column && $text) {
             $this->column = Str::snake($text);
         } else {
             $this->column = $column;
         }
 
-        if (!$this->column && !$this->text) {
+        if (! $this->column && ! $this->text) {
             $this->blank = true;
         }
 
