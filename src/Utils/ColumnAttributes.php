@@ -2,9 +2,9 @@
 
 namespace Rizkhal\Inertable\Utils;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Str;
 
 class ColumnAttributes
 {
@@ -23,7 +23,7 @@ class ColumnAttributes
      * Check if column has multiple relation
      *
      * @param string $column
-     * @return boolean
+     * @return bool
      */
     public static function hasMultipleRelation(string $column): bool
     {
@@ -78,11 +78,11 @@ class ColumnAttributes
             $hasWildcard = Str::endsWith($searchColumn, '*');
 
             // If no wildcard, skip
-            if (!$hasWildcard) {
+            if (! $hasWildcard) {
                 return false;
             }
 
-            if (!self::hasRelation($column)) {
+            if (! self::hasRelation($column)) {
                 return true;
             }
 
@@ -169,7 +169,7 @@ class ColumnAttributes
         // maps to: service_statuses.name
 
         // If we didn't previously match the column and there isn't a relation
-        if (!$hasRelation) {
+        if (! $hasRelation) {
             // There's nothing else to do
             return null;
         }
@@ -187,7 +187,7 @@ class ColumnAttributes
         }
 
         // If we found a possible table
-        if (!is_null($possibleTable)) {
+        if (! is_null($possibleTable)) {
             // Build possible selected column
             $possibleSelectColumn = $possibleTable . '.' . $fieldName;
 

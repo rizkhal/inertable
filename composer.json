@@ -24,12 +24,12 @@
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "Rizkhal\\Inertable\\": "php/"
+      "Rizkhal\\Inertable\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Rizkhal\\Inertable\\Tests\\": "php/tests"
+      "Rizkhal\\Inertable\\Tests\\": "tests/"
     }
   },
   "extra": {

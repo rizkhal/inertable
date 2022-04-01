@@ -2,8 +2,8 @@
 
 namespace Rizkhal\Inertable\Concerns;
 
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Rizkhal\Inertable\Utils\ColumnAttributes;
 
 /**
@@ -36,11 +36,11 @@ trait WithFilter
                     if ($column->hasSearchCallback()) {
                         // Call the callback
                         ($column->getSearchCallback())($subSubQuery, $search);
-                    } elseif (!$hasRelation || $selectedColumn) { // If the column isn't a relation or if it was previously selected
+                    } elseif (! $hasRelation || $selectedColumn) { // If the column isn't a relation or if it was previously selected
                         $whereColumn = $selectedColumn ?? $column->column;
 
                         // TODO: Skip Aggregates
-                        if (!$hasRelation) {
+                        if (! $hasRelation) {
                             $whereColumn = $query->getModel()->getTable() . '.' . $whereColumn;
                         }
 
