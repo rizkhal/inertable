@@ -89,3 +89,279 @@ protected $hiddens = [
 ```
 
 That's will return hidden user posts inside inertable props.
+
+## Usage inside controller
+
+You can use this with reactjs, svelte or vue with inertajs
+
+```php
+public function __invoke() {
+    return inertia('/path/to/file.{vue|jsx|svelte}')->inertable(new UserTable());
+}
+```
+
+Response example
+
+<details>
+    <summary>Click view</summary>
+
+```json
+{
+  "columns": [
+    {
+      "na": false,
+      "blank": false,
+      "sortable": true,
+      "searchable": true,
+      "checkbox": false,
+      "sortCallback": null,
+      "searchCallback": null,
+      "formatCallback": null,
+      "text": "name",
+      "column": "name"
+    },
+    {
+      "na": false,
+      "blank": false,
+      "sortable": true,
+      "searchable": true,
+      "checkbox": false,
+      "sortCallback": null,
+      "searchCallback": null,
+      "formatCallback": null,
+      "text": "email",
+      "column": "email"
+    },
+    {
+      "na": false,
+      "blank": false,
+      "sortable": true,
+      "searchable": false,
+      "checkbox": false,
+      "sortCallback": null,
+      "searchCallback": null,
+      "formatCallback": {},
+      "text": "email_verified_at",
+      "column": "email_verified_at"
+    },
+    {
+      "na": false,
+      "blank": false,
+      "sortable": true,
+      "searchable": false,
+      "checkbox": false,
+      "sortCallback": null,
+      "searchCallback": null,
+      "formatCallback": {},
+      "text": "created_at",
+      "column": "created_at"
+    }
+  ],
+  "data": {
+    "current_page": 1,
+    "data": [
+      {
+        "id": 1,
+        "name": "Robbie Abernathy",
+        "email": "nyundt@example.com",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 2,
+        "name": "Alfredo Langworth",
+        "email": "sofia.krajcik@example.com",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 3,
+        "name": "Deron Carroll",
+        "email": "considine.jevon@example.net",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 4,
+        "name": "Mr. Geoffrey Ritchie Sr.",
+        "email": "baumbach.alysha@example.net",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 5,
+        "name": "Miss Beth Kirlin IV",
+        "email": "mauricio.abernathy@example.net",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 6,
+        "name": "Davon Huel MD",
+        "email": "orland78@example.net",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 7,
+        "name": "Colleen Welch",
+        "email": "mertz.chad@example.com",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 8,
+        "name": "Alvah Crona",
+        "email": "albert78@example.org",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 9,
+        "name": "Verlie Streich",
+        "email": "lubowitz.mckayla@example.com",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 10,
+        "name": "Ms. Kristy Yost",
+        "email": "sauer.justina@example.org",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 11,
+        "name": "Jazmyn Blick",
+        "email": "corkery.nella@example.net",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 12,
+        "name": "Dr. Hyman Hauck",
+        "email": "tvonrueden@example.net",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 13,
+        "name": "Miss Heather Ernser DDS",
+        "email": "kozey.dana@example.com",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 14,
+        "name": "Jovan Kiehn Jr.",
+        "email": "bette.barton@example.org",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      },
+      {
+        "id": 15,
+        "name": "Mr. Florencio Huel",
+        "email": "greynolds@example.com",
+        "email_verified_at": "18/10/2022",
+        "created_at": "18/10/2022"
+      }
+    ],
+    "first_page_url": "http://example.test/users?page=1",
+    "from": 1,
+    "last_page": 134,
+    "last_page_url": "http://example.test/users?page=134",
+    "links": [
+      {
+        "url": null,
+        "label": "&laquo; Previous",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=1",
+        "label": "1",
+        "active": true
+      },
+      {
+        "url": "http://example.test/users?page=2",
+        "label": "2",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=3",
+        "label": "3",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=4",
+        "label": "4",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=5",
+        "label": "5",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=6",
+        "label": "6",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=7",
+        "label": "7",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=8",
+        "label": "8",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=9",
+        "label": "9",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=10",
+        "label": "10",
+        "active": false
+      },
+      {
+        "url": null,
+        "label": "...",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=133",
+        "label": "133",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=134",
+        "label": "134",
+        "active": false
+      },
+      {
+        "url": "http://example.test/users?page=2",
+        "label": "Next &raquo;",
+        "active": false
+      }
+    ],
+    "next_page_url": "http://example.test/users?page=2",
+    "path": "http://example.test/users",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 15,
+    "total": 2000
+  },
+  "filters": {
+    "column": null,
+    "search": null,
+    "direction": null,
+    "filters": null,
+    "perpage": null
+  }
+}
+```
+
+</details>
