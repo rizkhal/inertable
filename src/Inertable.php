@@ -11,6 +11,7 @@ use Rizkhal\Inertable\Concerns\WithPerPage;
 use Rizkhal\Inertable\Concerns\WithQuery;
 use Rizkhal\Inertable\Concerns\WithSorting;
 use Rizkhal\Inertable\Utils\ColumnAttributes;
+use Rizkhal\Inertable\View\Column;
 
 abstract class Inertable implements WithQuery, WithColumn
 {
@@ -37,6 +38,16 @@ abstract class Inertable implements WithQuery, WithColumn
     {
         if (method_exists($this, 'getKey')) {
             return array_merge([Column::make($this->getKey())], $this->columns());
+        }
+
+        if (property_exists($this, 'hiddens')) {
+            $tmp = [];
+
+            foreach ($this->hiddens as $key => $value) {
+                $tmp[] = Column::make($value);
+            }
+
+            return array_merge([Column::make('id')], $tmp, $this->columns());
         }
 
         return array_merge([Column::make('id')], $this->columns());
@@ -77,7 +88,7 @@ abstract class Inertable implements WithQuery, WithColumn
 
         $query = $this->applySearchFilter($request, $query);
 
-        return $query->paginate($this->perPage(), ['*'], $request->get('table') ?: 'inertable')->withQueryString()->through(fn ($model) => $this->through($model));
+        return $query->paginate($this->perPage())->withQueryString()->through(fn ($model) => $this->through($model));
     }
 
     /**

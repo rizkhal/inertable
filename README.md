@@ -69,3 +69,23 @@ class UserTable extends Inertable
     }
 }
 ```
+
+Add hidden response
+
+```php
+protected $hiddens = [
+    'office'
+];
+```
+
+The response will include `office` object in response to inertable props.
+
+Hidden response also accept relatoin, for example if you have `HasMany` relation from user to posts
+
+```php
+protected $hiddens = [
+    'user.posts'
+];
+```
+
+That's will return hidden user posts inside inertable props.

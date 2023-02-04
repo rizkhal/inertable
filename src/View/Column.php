@@ -1,6 +1,6 @@
 <?php
 
-namespace Rizkhal\Inertable;
+namespace Rizkhal\Inertable\View;
 
 use Closure;
 use Illuminate\Support\Str;
@@ -8,6 +8,8 @@ use Rizkhal\Inertable\Enums\ColumnType;
 
 class Column
 {
+    public bool $na = false;
+
     public bool $blank = false;
 
     public bool $sortable = false;
@@ -132,5 +134,12 @@ class Column
     public function getFormatCallback(): callable|null
     {
         return $this->formatCallback;
+    }
+
+    public function nullable()
+    {
+        $this->na = true;
+
+        return $this;
     }
 }

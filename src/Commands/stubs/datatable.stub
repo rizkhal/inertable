@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use Rizkhal\Datatable\Column;
+use Rizkhal\Datatable\Datatable;
+use Illuminate\Database\Eloquent\Builder;
+
+class DummyClass extends Datatable
+{
+    public function query(): Builder
+    {
+        // ...
+    }
+
+    public function columns(): array
+    {
+        return [
+            // ...
+        ];
+    }
+
+    public function fields(): array
+    {
+        return [
+            // ...
+        ];
+    }
+}
