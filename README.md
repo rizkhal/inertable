@@ -19,7 +19,11 @@
 </a>
   
 <a href="https://img.shields.io/packagist/v/rizkhal/inertable">
-<img alt="Packagist Version" src="https://img.shields.io/packagist/v/rizkhal/inertable">
+<img alt="Packagist Version" src="https://img.shields.io/packagist/v/rizkhal/inertable?color=emerald">
+</a>
+
+<a href="https://img.shields.io/packagist/dd/rizkhal/inertable?color=emerald">
+<img alt="Packagist Downloads" src="https://img.shields.io/packagist/dd/rizkhal/inertable?color=emerald">
 </a>
 
 </p>
